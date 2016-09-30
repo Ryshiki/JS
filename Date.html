@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+//var now=new Date(Date.parse('Tue,May 25,2004,22:20:30'));
+//var now=new Date(Date.UTC(2005,5,6,24,55,55));
+window.onload=function(){
+
+function fnTime(){
+		var myTime=new Date();
+		var iYear=myTime.getFullYear()
+		var iMonth=myTime.getMonth()+1
+		var iDate=myTime.getDate()
+		var iWeek=myTime.getDay()
+		var iHou=myTime.getHours()
+		var iMin=myTime.getMinutes()
+		var iSec=myTime.getSeconds()
+
+		var str='';
+		var aBody=document.body;
+		str=iYear+'-'+iMonth+'-'+iDate+' '+'星期'+iWeek+' '+toTwo(iHou)+':'+toTwo(iMin)+':'+toTwo(iSec);
+		aBody.innerHTML=str;
+	}
+	fnTime();
+
+//定时器一秒刷新一次
+	setInterval(fnTime,1000)
+}
+
+//处理秒为两位数
+function toTwo(a){
+	/*if(a<10){
+		return '0'+a;
+	}else{
+		return ''+a;
+	}*/
+	return a<10?'0'+a:''+a;
+}
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+/*	1.变量
+		基本类型：简单数据段-栈内存；
+		引用类型：多个值构成的对象-堆内存；
+
+	2.传递参数；！按值传递；
+			 1）基本类型时；被传递的值复制一份给局部变量（命名参数，arguments对象中的一个元素）；
+			 2）引用类型时：把这个值在对内存中的地址复制一份给局部变量；*/
+
+//demo1
+function fn(num){
+	num+=10;
+	return num;
+}
+var count=20;
+alert(count);
+alert(fn(count))
+//demo2
+function fn2(obj){
+	obj.name='liuguang';//原始引用未改变。
+	obj=new Object();//局部对象,函数执行完立即销毁。
+	obj.name='lg';
+}
+var person=new Object;
+fn2(person);
+alert(person.name)
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
