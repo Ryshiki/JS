@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+//原型模式
+//prototype:调用构造函数创建的对象实例的原型函数；可以让所有对象实例共享它所包含的属性和方法。
+
+//原型对象默认取的constructor属性，该属性是一个指向prototype所在函数的指针。
+
+//构造函数每个新实例都包含一个内部属性[[prototype]]，该属性指向构造函数的原型函数，与构造函数没有直接关系。
+
+//每当代码读取某个对象属性时，搜先搜索对象实例本身，如果找到则返回该属性值，没找到则继续搜索指针指向的原型对象，这正是多个对象共享原型所保存的属性和方法的基本原理。
+
+function Person(){
+	Person.prototype.name='liuguang';
+	Person.prototype.age=25;
+	Person.prototype.sayName=function(){
+		alert(this.name)
+	}
+}
+var person1=new Person();
+var person2=new Person();
+console.log(person1.name);
+console.log(Person.prototype.isPrototypeOf(person1));
+console.log(Object.getPrototypeOf(person1).age);
+
+//虽然可以通过对象实例来访问保存在原型中的值，但是不能通过对象实例改写原型中的值。如果为实例添加一个与原型中属性同名的值，则会屏蔽(阻止我们访问但不是修改)原型中的该属性。
+person1.name='momo';
+console.log(person1.name);
+console.log(person2.name);
+//delete可以删除实例属性，从而能够重新访问原型属性；
+delete person1.name;
+console.log(person1.name);
+//可以通过hasOwnProperty()方法检测该属性是否存在于实例中。
+console.log(person2.hasOwnProperty('name'))
+
+//in操作符:通过对象能够访问给定属性时返回true，无论存在实例还是原型；
+person2.name='papi';
+console.log(person2.hasOwnProperty('name'));
+console.log('name' in person1);//来自实例
+console.log('name' in person2);//来自原型
+
+//简写的原型语法
+var Person=function(){
+	Person.prototype={
+		//constructor:Person,
+		name:'liuguang',
+		age:25,
+		sayName:function(){
+			alert(this.name)
+		}
+	}
+}
+//结果相同，但是constructor属性不再指向Person.
+
+
+//构造函数模式+原型模式：最大程度节省内存。
+//构造函数：定义实例属性；原型模式：定义方法和共享属性。
+function Pers(name,age,job){
+	this.name=name;
+	this.age=age;
+	this.job=job;
+	this.friends=['momo','papi'];
+}
+Pers.prototype={
+	constructor:Pers,
+	sayName:function(){
+		alert(this.name);
+	}
+}
+var person1=new Pers('liuguang',25,'it');
+var person2=new Pers('momo',35,'doctor');
+person1.friends.push('vam');
+console.log(person1.friends);
+console.log(person2.friends);
+console.log(person1.sayName==person2.sayName);
+
+//动态原型模式：通过检查某个应该存在的方法是否有效，来决定是否初始化原型。
+/*if(typeof this.sayName!='function'){
+	Pers.prototype.sayName=function(){
+		alert(this.name);
+	}
+}*/
+
+
+//稳妥构造函数模式
+//稳妥对象：没有公共属性，其方法也不引用this对象。
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
