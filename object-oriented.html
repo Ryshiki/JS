@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+/*//对象字面量创建
+var person={
+	name:'liuguang',
+	age:25,
+	job:'it',
+	sayName:function(){
+		alert(this.name);
+	}
+};
+*/
+
+//属性类型
+//1.数据属性:[[Configurable]]],[[Enumerable]],[[Writable]],[[Value]];
+	//修改默认属性特性，Object.defineProperty(属性所在对象，属性名，描述符对象)；
+	/*var person={};
+	Object.defineProperty(person,'name',{
+		configurable:false,
+		writable:false,
+		value:'liuguang'
+	})
+	alert(person.name);
+	person.name='momo';
+	alert(person.name);
+	delete person.name;
+	alert(person.name);*/
+
+//访问器属性：get,set;
+/*var book={
+	_year:2004,
+	edition:1
+};
+Object.defineProperty(book,'year',{
+	get: function(){
+		return this,_year;
+	},
+	set: function(newValue){
+		if(newValue>2004){
+			this._year=newValue;
+			this.edition+=newValue-2004;
+		}
+	}
+});
+		//旧有方法
+		book._defineGetter_('year',function(){
+			return this._year
+		});
+		book._defineSetter_('year',function(newValue){
+			if(newValue>2004){
+				this._year=newValue;
+				this.edition+=newValue-2004;
+			}
+		})
+book.year=2005;
+alert(book.edition);*/
+
+//定义多个属性Object.defineProperties;
+
+//读取属性的特征Object.getOwnPropertyDescriptor();
+/*var book={};
+Object.defineProperties(book,{
+	_year:{
+		
+		configurable:true,
+		value:2004
+	},
+	edition:{
+		Value:1
+	},
+	year:{
+		get:function(){
+			return this._year;
+		},
+		set:function(newValue){
+			if(newValue>2004){
+				this._year=newValue;
+				this.edition+=newValue-2004;
+			}
+		}
+	}
+});
+var descriptor=Object.getOwnPropertyDescriptor(book,'_year');
+alert(descriptor.value);
+alert(descriptor.configurable);
+alert(descriptor.writable);
+alert(typeof descriptor.get);
+
+var descriptor=Object.getOwnPropertyDescriptor(book,'year');
+alert(descriptor.value);
+alert(descriptor.configurable);
+alert(typeof descriptor.get);
+*/
+
+//工厂模式：用函数封装特定接口创建对象的细节
+/*var createPerson=function(name,age,job){
+	var o=new Object;
+	o.name=name;
+	o.age=age;
+	o.job=job;
+	o.sayName=function(){
+		alert(this.name)
+	};
+	return o;
+}
+var person1=createPerson('liuguang',25,'it');
+var person2=createPerson('momo',20,'doctor');
+alert(person1.job)*/
+
+//构造函数模式:
+//1.创建一个新的对象；2将构造函数的作用域赋给新对象3执行构造函数中的代码；4返回新对象；
+/*var Person=function(name,age,job){
+	var o=new Object;
+	this.name=name;//this指向新对象
+	this.age=age;
+	this.job=job;
+	this.sayName=function(){
+		alert(this.name)
+	};
+}
+var person1=new Person('liuguang',25,'it');
+var person2=new Person('momo',20,'doctor');
+alert(person1.sayName==person2.sayName)*/
+
+//原型模式prototyp-通过调用构造函数而创建的那个对象实例的原型对象；
+/*function Person(){
+	Person.prototype.name='liuguang';
+	Person.prototype.age=25;
+	Person.prototype.job='it';
+	Person.prototype.sayName=function(){
+		alert(this.name);
+	}
+}
+	var person1=new Person();
+	var person2=new Person();
+	*/
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
